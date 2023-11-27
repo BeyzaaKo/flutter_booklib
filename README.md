@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # books_app
 
 A new Flutter project.
@@ -18,4 +17,3 @@ samples, guidance on mobile development, and a full API reference.
 =======
 # flutter_booklib
 a flutter project for mobile application developement course
->>>>>>> FETCH_HEAD
