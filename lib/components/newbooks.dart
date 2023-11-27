@@ -27,9 +27,10 @@ Widget newBook(BookData book) {
               Text(
                 book.bookName,
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 111, 111, 111)),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color.fromARGB(255, 74, 86, 67),
+                ),
               ),
               SizedBox(height: 2),
               Text(

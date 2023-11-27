@@ -17,31 +17,29 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 172, 223, 232),
+      backgroundColor: Color.fromARGB(255, 153, 196, 133),
+
+      //geri dönme butonu
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white, // İkon rengini belirleyebilirsiniz
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        automaticallyImplyLeading: true, // Geri dönme ikonunu otomatik ekle
+        backgroundColor: Colors.transparent, // App bar arkaplan rengi
+        elevation: 0, // App bar gölge efekti
+      ),
+
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 50),
-
-                // logo
-                Image.asset(
-                  'lib/images/books.png',
-                  width: 150,
-                  height: 150,
-                ),
-
-                //Name
-                Text(
-                  'BookLib💖',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
                 const SizedBox(height: 25),
 
                 // username textfield
@@ -71,7 +69,7 @@ class LoginPage extends StatelessWidget {
                       Text(
                         'Forgot Password?',
                         style:
-                            TextStyle(color: Color.fromARGB(255, 28, 172, 197)),
+                            TextStyle(color: Color.fromARGB(255, 55, 80, 44)),
                       ),
                     ],
                   ),
@@ -92,7 +90,8 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       'Not a member?',
-                      style: TextStyle(color: Colors.grey[700]),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 228, 234, 224)),
                     ),
                     const SizedBox(width: 4),
                     MaterialButton(
@@ -105,7 +104,7 @@ class LoginPage extends StatelessWidget {
                       child: const Text(
                         'Create Account',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 26, 138, 158),
+                          color: Color.fromARGB(255, 35, 53, 28),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

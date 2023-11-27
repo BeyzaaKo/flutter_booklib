@@ -2,13 +2,6 @@ import 'package:books_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/components/my_textfield.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: RegisterPage(),
-  ));
-}
-
 class RegisterPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
@@ -17,27 +10,27 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 172, 223, 232),
+      backgroundColor: Color.fromARGB(255, 153, 196, 133),
+
+      //geri dönme butonu
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white, // İkon rengini belirleyebilirsiniz
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        automaticallyImplyLeading: true, // Geri dönme ikonunu otomatik ekle
+        backgroundColor: Colors.transparent, // App bar arkaplan rengi
+        elevation: 0, // App bar gölge efekti
+      ),
       body: Container(
         padding: EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
-            //geri dönme butonu
-            Container(
-              padding: EdgeInsets.only(top: 10, left: 10),
-              alignment: Alignment.topLeft, // Bu satır eklenmiştir
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                  size: 24,
-                ),
-              ),
-            ),
-
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Text(
@@ -72,10 +65,10 @@ class RegisterPage extends StatelessWidget {
             //register button
             Container(
               padding: const EdgeInsets.all(15),
-              margin: const EdgeInsets.symmetric(horizontal: 130),
+              margin: const EdgeInsets.symmetric(horizontal: 200),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 28, 172, 197),
-                borderRadius: BorderRadius.circular(16),
+                color: Color.fromARGB(255, 55, 80, 44),
+                borderRadius: BorderRadius.circular(30),
               ),
               child: TextButton(
                 onPressed: () {
@@ -83,7 +76,7 @@ class RegisterPage extends StatelessWidget {
                 },
                 style: TextButton.styleFrom(
                   backgroundColor:
-                      Color.fromARGB(255, 28, 172, 197), // Background color
+                      Color.fromARGB(255, 55, 80, 44), // Background color
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),

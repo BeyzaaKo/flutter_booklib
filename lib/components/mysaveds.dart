@@ -26,7 +26,7 @@ Widget mySaved(BookData saved) {
         Text(saved.bookName,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.grey,
+              color: Color.fromARGB(255, 108, 116, 103),
             )),
       ],
     ),

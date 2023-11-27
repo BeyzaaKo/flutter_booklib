@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 4, 157, 184),
+        backgroundColor: Color.fromARGB(255, 55, 80, 44),
         centerTitle: true,
         title: Text(
           "Profile",
@@ -125,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Text(
                         "UserName",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 4, 157, 184),
+                          color: Color.fromARGB(255, 75, 110, 60),
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
@@ -134,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         margin: EdgeInsets.only(top: 5),
                         height: 1.5, // Çizgi kalınlığı
                         width: double.infinity, // Çizgi genişliği
-                        color: Color.fromARGB(255, 4, 157, 184),
+                        color: Color.fromARGB(255, 75, 110, 60),
                       ),
                       /* //FOLLOWLAMA İŞLEMİ AMA YAPMAK İSTEDİĞİMDEN EMİN DEĞİLİM
                       ElevatedButton(
@@ -156,7 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Text(
                         "📃 Saved List",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 2, 128, 151),
+                          color: Color.fromARGB(255, 55, 80, 44),
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),
@@ -193,7 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Text(
                         "🤍 Favourites",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 2, 128, 151),
+                          color: Color.fromARGB(255, 55, 80, 44),
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),
@@ -227,8 +227,8 @@ class _ProfilePageState extends State<ProfilePage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         //seçili sayfanın rengi
-        selectedItemColor: Color.fromARGB(127, 5, 134, 157),
-        unselectedItemColor: Color.fromARGB(255, 4, 157, 184),
+        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
+        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
 
         //seçili sayfanın fontu
         selectedLabelStyle: TextStyle(

@@ -46,7 +46,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 4, 157, 184),
+        backgroundColor: Color.fromARGB(255, 55, 80, 44),
         centerTitle: true,
         title: Text(
           "Discover",
@@ -99,7 +99,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               Text(
                 "Popular Books",
                 style: TextStyle(
-                  color: Color.fromARGB(255, 2, 128, 151),
+                  color: Color.fromARGB(255, 75, 110, 60),
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),
@@ -130,7 +130,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               Text(
                 "See Also",
                 style: TextStyle(
-                  color: Color.fromARGB(255, 2, 128, 151),
+                  color: Color.fromARGB(255, 75, 110, 60),
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                 ),
@@ -160,8 +160,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         //seçili sayfanın rengi
-        selectedItemColor: Color.fromARGB(127, 5, 134, 157),
-        unselectedItemColor: Color.fromARGB(255, 4, 157, 184),
+        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
+        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
 
         //seçili sayfanın fontu
         selectedLabelStyle: TextStyle(

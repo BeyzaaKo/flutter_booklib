@@ -14,7 +14,7 @@ class _BooksPageState extends State<BooksPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 4, 157, 184),
+        backgroundColor: Color.fromARGB(255, 55, 80, 44),
         centerTitle: true,
         title: Text(
           "Books",
@@ -53,8 +53,8 @@ class _BooksPageState extends State<BooksPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         //seçili sayfanın rengi
-        selectedItemColor: Color.fromARGB(127, 5, 134, 157),
-        unselectedItemColor: Color.fromARGB(255, 4, 157, 184),
+        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
+        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
 
         //seçili sayfanın fontu
         selectedLabelStyle: TextStyle(
@@ -67,7 +67,7 @@ class _BooksPageState extends State<BooksPage> {
         ),
 
         //seçili sayfanın indeksi
-        currentIndex: 2,
+        currentIndex: 0,
 
         //seçili sayfaya gitmek için
         onTap: (index) {

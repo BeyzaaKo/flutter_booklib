@@ -27,7 +27,7 @@ Widget popBook(BookData book) {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Color.fromARGB(255, 133, 132, 132),
+              color: Color.fromARGB(255, 94, 102, 89),
             )),
       ],
     ),
