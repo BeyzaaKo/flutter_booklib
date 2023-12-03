@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/pages/register.dart';
+import 'package:books_app/pages/sinup_page.dart';
 import 'package:books_app/components/my_textfield.dart';
-import 'package:books_app/components/my_button.dart';
+import 'package:books_app/components/my_logbutton.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -99,7 +98,7 @@ class LoginPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterPage()));
+                                builder: (context) => SignupPage()));
                       },
                       child: const Text(
                         'Create Account',

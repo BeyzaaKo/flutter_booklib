@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
-import 'pages/register.dart';
+import 'pages/sinup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -81,7 +81,7 @@ class MyHomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
+                  MaterialPageRoute(builder: (context) => SignupPage()),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -95,7 +95,7 @@ class MyHomePage extends StatelessWidget {
                     Size(150, 50), // Minimum boyut (genişlik, yükseklik)
               ),
               child: Text(
-                'Register',
+                'Sign Up',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,

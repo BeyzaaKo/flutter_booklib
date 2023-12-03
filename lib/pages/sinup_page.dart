@@ -1,11 +1,14 @@
-import 'package:books_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/components/my_textfield.dart';
+import 'package:books_app/components/my_signbutton.dart';
 
-class RegisterPage extends StatelessWidget {
+class SignupPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  // sign user in method
+  void signUserUp() {}
 
   @override
   Widget build(BuildContext context) {
@@ -62,40 +65,9 @@ class RegisterPage extends StatelessWidget {
             ),
             SizedBox(height: 30),
 
-            //register button
-            Container(
-              padding: const EdgeInsets.all(15),
-              margin: const EdgeInsets.symmetric(horizontal: 200),
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 55, 80, 44),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  // Burada kayıt işlemleri yapılabilir
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor:
-                      Color.fromARGB(255, 55, 80, 44), // Background color
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: MaterialButton(
-                  onPressed: (() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  }),
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
+            //sign up button
+            MySignButton(
+              onTap: signUserUp,
             ),
           ],
         ),

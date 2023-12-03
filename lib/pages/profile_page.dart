@@ -1,3 +1,4 @@
+import 'package:books_app/components/settings_page.dart';
 import 'package:books_app/pages/books_page.dart';
 import 'package:books_app/pages/discover_page.dart';
 import 'package:books_app/pages/profile_page.dart';
@@ -88,7 +89,8 @@ class _ProfilePageState extends State<ProfilePage> {
               size: 24,
             ),
             onPressed: () {
-              // Ayarlar sayfasına gitme işlemleri buraya eklenir
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()));
             },
           ),
         ],
@@ -148,6 +150,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 15),
 
+                //liste görünümü oluşturma
+                //kaydedilenler için
                 Container(
                   margin: EdgeInsets.only(top: 10, left: 25, right: 25),
                   child: Column(
@@ -166,8 +170,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 12), // Altından boşluk
 
-                //liste görünümü oluşturma
-                //kaydedilenler için
                 Container(
                   width: double.infinity,
                   height: 200.0,
@@ -185,6 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 SizedBox(height: 16), // Altından boşluk
 
+                //favoriler için
                 Container(
                   margin: EdgeInsets.only(top: 10, left: 25, right: 25),
                   child: Column(
@@ -203,7 +206,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 SizedBox(height: 12),
 
-                //favoriler için
                 Container(
                   width: double.infinity,
                   height: 200.0,
