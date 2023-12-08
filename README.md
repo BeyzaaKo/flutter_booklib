@@ -1,19 +1,17 @@
-# books_app
+# BookLib
+BookLib is an app made with Flutter framework.
 
-A new Flutter project.
+It is an application that contains many books from different genres. The user can add the books they have read and their favorites to the lists that exists. They can also search through many different books or review the books that are popular at the time.
 
-## Getting Started
+The backend and frontend code is attached and structured in their respective folders. Further instructions are also found inside those folders.
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- User profile with Saved and Favourites lists.
+- Discover page with popular books.
+- All book listings by genres.
+- Author and book reviews and ratings.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
-# flutter_booklib
-a flutter project for mobile application developement course
+
+###### (Project images and other details will be added after the project is completed.)
