@@ -5,7 +5,7 @@ import 'package:books_app/components/book_genres/fantasy.dart';
 import 'package:books_app/components/book_genres/romance.dart';
 import 'package:books_app/components/mysaveds.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/components/settings_page.dart';
+import 'package:books_app/pages/settings_page.dart';
 import 'package:books_app/data/bookdata.dart';
 import 'package:books_app/pages/books_page.dart';
 import 'package:books_app/pages/discover_page.dart';

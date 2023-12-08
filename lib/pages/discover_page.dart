@@ -1,5 +1,5 @@
 import 'package:books_app/components/newbooks.dart';
-import 'package:books_app/components/settings_page.dart';
+import 'package:books_app/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/components/popularbooks.dart';
 import 'package:books_app/data/bookdata.dart';

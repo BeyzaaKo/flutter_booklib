@@ -2,8 +2,9 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id 'com.google.gms.google-services'
+    //id 'com.google.gms.google-services'
 }
+
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
@@ -61,10 +62,16 @@ android {
     }
 }
 
+dependencies {
+    //firebase kullanmadığım için yorum
+        /*Replace 'com.google.firebase:firebase-auth' with the specific Firebase dependency you want to use. 
+        This example includes firebase-analytics and firebase-auth.*/
+    //implementation 'com.google.firebase:firebase-analytics' // Add the Firebase dependency you need here
+    //implementation 'com.google.firebase:firebase-auth' // Add other Firebase dependencies as needed
+}
+
 flutter {
     source '../..'
 }
 
-dependencies {
-    implementation platform('com.google.firebase:firebase-bom:32.5.0')
-}
+//apply plugin: 'com.google.gms.google-services' // Move this line to the end of the file

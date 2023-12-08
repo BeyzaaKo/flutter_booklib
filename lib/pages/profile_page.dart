@@ -1,4 +1,4 @@
-import 'package:books_app/components/settings_page.dart';
+import 'package:books_app/pages/settings_page.dart';
 import 'package:books_app/pages/books_page.dart';
 import 'package:books_app/pages/discover_page.dart';
 import 'package:books_app/pages/profile_page.dart';
