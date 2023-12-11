@@ -9,10 +9,10 @@ class MySignButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.symmetric(horizontal: 130),
+      margin: const EdgeInsets.symmetric(horizontal: 110),
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 55, 80, 44),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(50),
       ),
       child: MaterialButton(
         onPressed: (() {
@@ -24,7 +24,7 @@ class MySignButton extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 16,
+            fontSize: 18,
           ),
         ),
       ),

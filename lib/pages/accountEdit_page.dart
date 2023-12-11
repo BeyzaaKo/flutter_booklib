@@ -1,7 +1,4 @@
-import 'package:books_app/components/widgets/edit_item.dart';
-import 'package:books_app/components/widgets/forward_button.dart';
-import 'package:books_app/components/widgets/settingItem.dart';
-import 'package:books_app/components/widgets/setting_switch.dart';
+import 'package:books_app/setting%20widgets/edit_item.dart';
 import 'package:books_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +15,9 @@ class _AccPageState extends State<AccPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,

@@ -23,6 +23,14 @@
             "program": "lib/main.dart",
             "request": "launch",
             "type": "dart"
-        }
+        },
+        {
+            "name": "Flutter (Android 14 Emulator)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "debug",
+            "deviceId": "emulator-5554"
+          }
     ]
 }

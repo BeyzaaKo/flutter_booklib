@@ -1,10 +1,5 @@
 import 'package:books_app/pages/settings_page.dart';
-import 'package:books_app/pages/books_page.dart';
-import 'package:books_app/pages/discover_page.dart';
-import 'package:books_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/components/mysaveds.dart';
-import 'package:books_app/components/myfavs.dart';
 import 'package:books_app/data/bookdata.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -13,47 +8,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  List<BookData> saved = [
-    BookData(
-        "https://m.media-amazon.com/images/I/81+Qh6wGRKL._AC_UF1000,1000_QL80_.jpg",
-        "A Place Called Perfect",
-        "Helena Duggan",
-        132,
-        3.8,
-        "bookDescription"),
-    BookData("https://m.media-amazon.com/images/I/718W0JbHm1L._SL1500_.jpg",
-        "Normal People", "Sally Rooney", 304, 4.1, "bookDescription"),
-    BookData(
-        "https://m.media-amazon.com/images/I/61k7JqSWOUL._SY522_.jpg",
-        "The Ballad of Songbirds and Snakes",
-        "Suzanne Collins",
-        528,
-        4.6,
-        "bookDescription"),
-    BookData(
-        "https://m.media-amazon.com/images/I/417CJF0ASyL._SY445_SX342_.jpg",
-        "Mr Salary",
-        "Sally Rooney",
-        48,
-        4.4,
-        "bookDescription"),
-  ];
+  List<BookData> saved = [];
 
-  List<BookData> fav = [
-    BookData("https://m.media-amazon.com/images/I/713QrA632AL._SY522_.jpg",
-        "The Vanishing Hal", "Britt Bennett", 400, 4.4, "bookDescription"),
-    BookData("https://m.media-amazon.com/images/I/718W0JbHm1L._SL1500_.jpg",
-        "Normal People", "Sally Rooney", 304, 4.1, "bookDescription"),
-    BookData(
-        "https://m.media-amazon.com/images/I/61k7JqSWOUL._SY522_.jpg",
-        "The Ballad of Songbirds and Snakes",
-        "Suzanne Collins",
-        528,
-        4.6,
-        "bookDescription"),
-    BookData("https://m.media-amazon.com/images/I/81msb6gUBTL._SY522_.jpg",
-        "The Song of Achilles", "Madeline Miller", 416, 4.6, "bookDescription"),
-  ];
+  List<BookData> fav = [];
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +23,8 @@ class _ProfilePageState extends State<ProfilePage> {
           "Profile",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
         ),
         leading: IconButton(
@@ -152,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 //liste görünümü oluşturma
                 //kaydedilenler için
-                Container(
+                /*Container(
                   margin: EdgeInsets.only(top: 10, left: 25, right: 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,77 +175,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       myFavs(fav[3]),
                     ],
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
         ),
-      ),
-
-      //navigation bar
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        //seçili sayfanın rengi
-        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
-        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
-
-        //seçili sayfanın fontu
-        selectedLabelStyle: TextStyle(
-          fontSize: 14.0, // Seçili olan label font büyüklüğü
-          fontWeight: FontWeight.bold, // Seçili olan label font kalınlığı
-        ),
-        unselectedLabelStyle: TextStyle(
-          fontSize: 14.0, // Seçili olmayan label font büyüklüğü
-          fontWeight: FontWeight.normal, // Seçili olmayan label font kalınlığı
-        ),
-
-        //seçili sayfanın indeksi
-        currentIndex: 2,
-
-        //seçili sayfaya gitmek için
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BooksPage()),
-              );
-              break;
-            case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DiscoverPage()),
-              );
-              break;
-            case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              );
-              break;
-          }
-        },
-
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.book,
-            ),
-            label: "Books",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: "Discover",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
-            label: "Profile",
-          ),
-        ],
       ),
     );
   }

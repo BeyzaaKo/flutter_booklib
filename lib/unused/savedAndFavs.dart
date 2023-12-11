@@ -1,5 +1,6 @@
-import 'dart:ui';
+////statik liste eklediğimde lazımdı, artık değil
 
+import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

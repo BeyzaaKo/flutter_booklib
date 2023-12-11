@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/sinup_page.dart';
+import 'package:books_app/genres/app_notifier.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppNotifier()),
+        // Diğer providerlar buraya eklenebilir
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +32,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 153, 196, 133),
+      backgroundColor: const Color.fromARGB(255, 153, 196, 133),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +48,7 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(height: 10),
 
             //Name
-            Text(
+            const Text(
               'BookLib❤️',
               style: TextStyle(
                 color: Colors.white,
@@ -66,7 +76,7 @@ class MyHomePage extends StatelessWidget {
                 onPrimary: Colors.white, // Buton metin rengi
                 minimumSize: Size(150, 50),
               ),
-              child: Text(
+              child: const Text(
                 "Login",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -74,7 +84,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             //sign up butonu
             ElevatedButton(
@@ -89,12 +99,12 @@ class MyHomePage extends StatelessWidget {
                   borderRadius:
                       BorderRadius.circular(22.0), // Butonun köşe yuvarlaklığı
                 ),
-                primary: Color.fromARGB(255, 55, 80, 44), // Buton rengi
+                primary: const Color.fromARGB(255, 55, 80, 44), // Buton rengi
                 onPrimary: Colors.white, // Buton metin rengi
                 minimumSize:
-                    Size(150, 50), // Minimum boyut (genişlik, yükseklik)
+                    const Size(150, 50), // Minimum boyut (genişlik, yükseklik)
               ),
-              child: Text(
+              child: const Text(
                 'Sign Up',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,

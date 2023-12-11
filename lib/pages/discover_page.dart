@@ -1,12 +1,11 @@
-import 'package:books_app/components/newbooks.dart';
+import 'package:books_app/books/newbooks.dart';
 import 'package:books_app/pages/settings_page.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/components/popularbooks.dart';
+import 'package:books_app/books/popularbooks.dart';
 import 'package:books_app/data/bookdata.dart';
-import 'package:books_app/components/newbooks.dart';
-import 'package:books_app/pages/books_page.dart';
-import 'package:books_app/pages/discover_page.dart';
-import 'package:books_app/pages/profile_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:books_app/book_services/service3.dart';
+import 'dart:convert' as convert;
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({Key? key}) : super(key: key);
@@ -16,31 +15,70 @@ class DiscoverPage extends StatefulWidget {
 }
 
 class _DiscoverPageState extends State<DiscoverPage> {
-  List<BookData> books = [
-    BookData(
-        "https://m.media-amazon.com/images/I/81+Qh6wGRKL._AC_UF1000,1000_QL80_.jpg",
-        "A Place Called Perfect",
-        "Helena Duggan",
-        132,
-        3.8,
-        "bookDescription"),
-    BookData("https://m.media-amazon.com/images/I/718W0JbHm1L._SL1500_.jpg",
-        "Normal People", "Sally Rooney", 304, 4.1, "bookDescription"),
-    BookData(
-        "https://m.media-amazon.com/images/I/61k7JqSWOUL._SY522_.jpg",
-        "The Ballad of Songbirds and Snakes",
-        "Suzanne Collins",
-        528,
-        4.6,
-        "bookDescription"),
-    BookData(
-        "https://m.media-amazon.com/images/I/417CJF0ASyL._SY445_SX342_.jpg",
-        "Mr Salary",
-        "Sally Rooney",
-        48,
-        4.4,
-        "bookDescription"),
-  ];
+  List<BookData> searchedBooks = [];
+  List<BookData> popularBooks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getPopularBooks();
+  }
+
+  // Arama yapma metodu
+  void searchBooks(String query) async {
+    final apiKey = 'AIzaSyCyzDggZ-_ChpGRDcY9UQPh44tkIzOFyQU';
+    final apiUrl =
+        'https://www.googleapis.com/books/v1/volumes?q=$query&key=$apiKey';
+
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        searchedBooks = _parseBookJson(response.body);
+      });
+    } else {
+      print('Error: ${response.reasonPhrase}');
+    }
+  }
+
+  // Popüler kitapları çekme metodu
+  void getPopularBooks() async {
+    try {
+      var result = await PopularBookServices().getPopularBooks();
+      if (result.isNotEmpty) {
+        setState(() {
+          popularBooks = result;
+          print('Popular Books: $popularBooks'); // Bu satırı ekledik
+        });
+      } else {
+        print('No popular books found');
+      }
+    } catch (e) {
+      print('Error fetching popular books: $e');
+    }
+  }
+
+  List<BookData> _parseBookJson(String jsonStr) {
+    final jsonMap = convert.json.decode(jsonStr);
+    final jsonList = (jsonMap['items'] as List);
+
+    return jsonList.map((jsonBook) {
+      final volumeInfo = jsonBook['volumeInfo'];
+      final imageLinks = volumeInfo['imageLinks'];
+
+      return BookData(
+        bookName: volumeInfo['title'] ?? 'Unknown Title',
+        author: (volumeInfo['authors'] as List<dynamic>?)?.isNotEmpty ?? false
+            ? volumeInfo['authors'][0]
+            : 'Unknown Author',
+        pageNum: volumeInfo['pageCount'] ?? 0,
+        description: volumeInfo['description'] ?? '',
+        rating: volumeInfo['averageRating']?.toDouble() ?? 0.0,
+        bookCover: imageLinks != null ? imageLinks['smallThumbnail'] ?? '' : '',
+        genre: '',
+      );
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +91,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
           "Discover",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
         ),
         leading: IconButton(
@@ -87,6 +125,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
+                onChanged: (query) {
+                  searchBooks(query);
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Color.fromARGB(255, 237, 237, 237),
@@ -100,42 +141,35 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 ),
               ),
               SizedBox(height: 15),
+
               Text(
-                "Popular Books",
+                "See what's new...",
                 style: TextStyle(
                   color: Color.fromARGB(255, 75, 110, 60),
-                  fontSize: 17,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               SizedBox(height: 12),
 
               //liste görünümü oluşturma
+              // Popüler kitapları gösteren widget
               Container(
                 width: double.infinity,
-                height: 260.0,
+                height: 300.0,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    popBook(books[0]),
-                    popBook(books[1]),
-                    popBook(books[2]),
-                    popBook(books[3]),
-                    popBook(books[0]),
-                    popBook(books[1]),
-                    popBook(books[2]),
-                    popBook(books[3]),
-                  ],
+                  children: popularBooks.map((book) => popBook(book)).toList(),
                 ),
               ),
 
               SizedBox(height: 20),
 
               Text(
-                "See Also",
+                "Search Results:",
                 style: TextStyle(
                   color: Color.fromARGB(255, 75, 110, 60),
-                  fontSize: 15,
+                  fontSize: 22,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -143,87 +177,17 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 height: 12,
               ),
 
+              // Arama sonuçlarını gösteren widget
               Container(
                 width: double.infinity,
-                height: 600.0,
+                height: 1000,
                 child: ListView(
-                  children: [
-                    newBook(books[0]),
-                    newBook(books[3]),
-                    newBook(books[1]),
-                    newBook(books[2]),
-                  ],
+                  children: searchedBooks.map((book) => newBook(book)).toList(),
                 ),
               ),
             ],
           ),
         ),
-      ),
-
-      //navigation bar
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        //seçili sayfanın rengi
-        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
-        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
-
-        //seçili sayfanın fontu
-        selectedLabelStyle: TextStyle(
-          fontSize: 14.0, // Seçili olan label font büyüklüğü
-          fontWeight: FontWeight.bold, // Seçili olan label font kalınlığı
-        ),
-        unselectedLabelStyle: TextStyle(
-          fontSize: 14.0, // Seçili olmayan label font büyüklüğü
-          fontWeight: FontWeight.normal, // Seçili olmayan label font kalınlığı
-        ),
-
-        //seçili sayfanın indeksi
-        currentIndex: 1,
-
-        //seçili sayfaya gitmek için
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BooksPage()),
-              );
-              break;
-            case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DiscoverPage()),
-              );
-              break;
-            case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              );
-              break;
-          }
-        },
-
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.book,
-            ),
-            label: "Books",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: "Discover",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
-            label: "Profile",
-          ),
-        ],
       ),
     );
   }

@@ -89,10 +89,12 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       'Not a member?',
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 228, 234, 224)),
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 228, 234, 224),
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    const SizedBox(width: 4),
                     MaterialButton(
                       onPressed: () {
                         Navigator.push(
@@ -105,6 +107,7 @@ class LoginPage extends StatelessWidget {
                         style: TextStyle(
                           color: Color.fromARGB(255, 35, 53, 28),
                           fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
                       ),
                     )
