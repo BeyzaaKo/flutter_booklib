@@ -62,7 +62,7 @@ class BookList extends StatelessWidget {
               }
               if (snapshot.hasData) {
                 return GridView.builder(
-                  itemCount: 35,
+                  itemCount: 36,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       //childAspectRatio: 16 / 15,
                       crossAxisCount: 2,
@@ -151,6 +151,7 @@ class BookList extends StatelessWidget {
                                             .textTheme
                                             .headline4
                                             ?.copyWith(
+                                              color: Colors.grey.shade700,
                                               fontSize:
                                                   constraints.maxWidth * 0.09,
                                             ),
@@ -163,20 +164,24 @@ class BookList extends StatelessWidget {
                                             .textTheme
                                             .headline4
                                             ?.copyWith(
+                                                color: Color.fromARGB(
+                                                    255, 55, 80, 44),
                                                 fontSize:
-                                                    constraints.maxWidth * 0.09,
+                                                    constraints.maxWidth * 0.1,
                                                 fontWeight: FontWeight.bold),
                                       ),
+                                      SizedBox(height: 10),
                                       Container(
                                         height: constraints.maxHeight * 0.13,
                                         width: constraints.maxWidth * 0.35,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                            color: AppColors.black,
+                                            color: Color.fromARGB(
+                                                255, 94, 121, 82),
                                             borderRadius:
                                                 BorderRadius.circular(12)),
                                         child: Text(
-                                          "\$${snapshot.data?.items![index].volumeInfo?.pageCount}",
+                                          "${snapshot.data?.items![index].volumeInfo?.pageCount}",
                                           style: TextStyle(
                                               fontSize:
                                                   constraints.maxWidth * 0.08,

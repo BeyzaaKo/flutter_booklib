@@ -49,11 +49,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   child: Column(
                     children: [
                       SizedBox(
+                        //kitabın başlangıç yeri
                         height: height * 350,
                         child: Stack(
                           children: [
                             Container(
                               width: double.maxFinite,
+                              //arkadaki rengin yeri
                               height: height * 200,
                               decoration: BoxDecoration(
                                 color:
@@ -64,30 +66,38 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                               ),
                             ),
+
+                            //kitap kapağı ile ilgili
                             Positioned(
                               left: 0,
                               right: 0,
                               bottom: 0,
                               child: Container(
+                                //kitabın duracağı yer
                                 height: height * 250,
+                                width: double.infinity,
                                 alignment: Alignment.center,
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(26),
                                   child: Image(
                                     image: NetworkImage(
                                         "${snapshot.data?.volumeInfo?.imageLinks?.thumbnail}"),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
+                                    height: 288,
+                                    width: 192,
                                   ),
                                 ),
                               ),
                             ),
+
                             Positioned(
-                              top: 70,
+                              top: 60,
                               left: 16,
                               child: OutlinedButton.icon(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
+                                //dış çerveçe
                                 style: OutlinedButton.styleFrom(
                                     side: const BorderSide(width: 1)),
                                 icon: Icon(
@@ -102,94 +112,57 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Container(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
                               "${snapshot.data?.volumeInfo?.title ?? "Censored"}",
                               textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  ?.copyWith(fontSize: 24),
+                              style: TextStyle(
+                                  fontSize: 26, fontWeight: FontWeight.w400),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 8),
                             Text(
-                              "${snapshot.data?.volumeInfo!.authors?.length != 0 ? snapshot.data?.volumeInfo!.authors![0] : "Censored"}"
-                                  .toUpperCase(),
+                              "${snapshot.data?.volumeInfo!.authors?.length != 0 ? snapshot.data?.volumeInfo!.authors![0] : "Censored"}",
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.headline4,
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.w500),
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 6,
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 35),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${snapshot.data?.volumeInfo?.printType}",
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
-                                  const Spacer(
-                                    flex: 2,
-                                  ),
-                                  Container(
-                                    height: height * 35,
-                                    width: width * 80,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.black,
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    child: Text(
-                                      "\$${snapshot.data?.volumeInfo?.pageCount}",
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    "${snapshot.data?.volumeInfo?.pageCount} Pages",
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  )
-                                ],
-                              ),
-                            ),
+
+                            //listelere ekleme
                             const SizedBox(
                               height: 20,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                OutlinedButton(
-                                  onPressed: () async {
-                                    Uri url = Uri.parse(
-                                        "${snapshot.data?.volumeInfo?.previewLink}");
-
-                                    if (await canLaunchUrl(url)) {
-                                      await launchUrl(url,
-                                          mode: LaunchMode.externalApplication);
-                                    } else {
-                                      throw 'could not launch $url';
-                                    }
-                                  },
+                                //saved list
+                                OutlinedButton.icon(
+                                  onPressed: () {},
                                   style: OutlinedButton.styleFrom(
                                       side: const BorderSide(width: 1)),
-                                  child: Text(
-                                    "VIEW ONLINE",
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
+                                  icon: Icon(
+                                    Icons.add_circle_outline,
+                                    color: AppColors.black,
+                                  ),
+                                  label: Text(
+                                    "Saved List",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
+                                const SizedBox(width: 12),
+                                //favourites
                                 OutlinedButton.icon(
                                   onPressed: () {},
                                   style: OutlinedButton.styleFrom(
@@ -199,87 +172,99 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     color: AppColors.black,
                                   ),
                                   label: Text(
-                                    "WISHLIST",
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
+                                    "Favourites",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 )
                               ],
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 30,
                             ),
-                            Text(
-                              "Details",
-                              style: Theme.of(context).textTheme.headline2,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
+
                             SizedBox(
                               child: Row(
                                 children: [
                                   Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Author",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4,
+                                        "Publisher",
+                                        style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                      Text("Publisher",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4),
-                                      Text("Published Date",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4),
-                                      Text("Categorie",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4)
+                                      Text(
+                                        "Published Date",
+                                        style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Text(
+                                        "Genre",
+                                        style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Text(
+                                        "Pages",
+                                        style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w500),
+                                      ),
                                     ],
                                   ),
                                   const SizedBox(width: 20),
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.end,
                                       children: [
-                                        Text(
-                                          "${snapshot.data?.volumeInfo?.authors?[0]}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              ?.copyWith(fontSize: 16),
-                                        ),
+                                        //yayıncısı
                                         Text(
                                           "${snapshot.data?.volumeInfo?.publisher}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              ?.copyWith(fontSize: 16),
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400),
                                         ),
+                                        //yayın tarihi
+                                        const SizedBox(height: 8),
                                         Text(
                                           "${snapshot.data?.volumeInfo?.publishedDate}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              ?.copyWith(fontSize: 16),
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400),
                                         ),
+                                        const SizedBox(height: 8),
+                                        //türü
                                         Text(
                                           "${snapshot.data?.volumeInfo?.categories?[0]}",
                                           overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              ?.copyWith(fontSize: 16),
-                                        )
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        //sayfa sayısı
+                                        Text(
+                                          "${snapshot.data?.volumeInfo?.pageCount}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400),
+                                        ),
                                       ],
                                     ),
                                   )
@@ -289,50 +274,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             const SizedBox(
                               height: 20,
                             ),
-                            Text(
-                              "Discription",
-                              style: Theme.of(context).textTheme.headline2,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            ReadMoreText(
-                              "${snapshot.data?.volumeInfo?.description}",
-                              trimLines: 6,
-                              colorClickableText: AppColors.black,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: '...Read More',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5
-                                  ?.copyWith(fontSize: 14),
-                              trimExpandedText: ' Less',
+
+                            //Description
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color:
+                                    widget.boxColor ?? const Color(0xffF9CFE3),
+                                border: Border.all(color: Colors.grey.shade300),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: ReadMoreText(
+                                "${snapshot.data?.volumeInfo?.description}",
+                                //kaç satır görüneceği
+                                trimLines: 6,
+                                //read more/less
+                                colorClickableText: Colors.grey,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Read More',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                trimExpandedText: ' Less',
+                              ),
                             ),
                             const SizedBox(height: 10),
-                            ElevatedButton(
-                              onPressed: () async {
-                                Uri url = Uri.parse(
-                                    "${snapshot.data?.volumeInfo?.infoLink}");
-
-                                if (await canLaunchUrl(url)) {
-                                  await launchUrl(url,
-                                      mode: LaunchMode.externalApplication);
-                                } else {
-                                  throw 'could not launch $url';
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: AppColors.black,
-                              ),
-                              child: Text(
-                                "Buy",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2
-                                    ?.copyWith(
-                                        fontSize: 18, color: Colors.white),
-                              ),
-                            ),
                           ],
                         ),
                       ),

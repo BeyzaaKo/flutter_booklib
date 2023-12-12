@@ -31,21 +31,23 @@ class _AccPageState extends State<SettingsPage> {
           },
         ),
         leadingWidth: 80,
-        /* DÜZENLEME BUTONU
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.mode_edit_outline_rounded,
-              color: Color.fromARGB(255, 55, 80, 44),
-              size: 20,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => AccPage()));
-            },
-          ),
-        ], */
       ),
+
+      /*DÜZENLEME BUTONU
+      actions: [
+        IconButton(
+          icon: Icon(
+            Icons.mode_edit_outline_rounded,
+            color: Color.fromARGB(255, 55, 80, 44),
+            size: 20,
+          ),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AccPage()));
+          },
+        ),
+      ],*/
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
