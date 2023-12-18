@@ -2,19 +2,11 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter (Android 14 Emulator)",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main.dart",
-            "flutterMode": "debug",
-            "deviceId": "emulator-5554"  // Emülatör ID'si burada kullanılıyor
-        },
-        {
             "name": "books_app",
-            "cwd": "books_app",
             "request": "launch",
             "type": "dart"
         },
@@ -31,6 +23,25 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
-        }
+        },
+        {
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "Flutter",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Flutter (Android 14 Emulator)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "debug",
+            "deviceId": "emulator-5554"
+          },
     ]
 }

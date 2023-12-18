@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "321014829134",
+    "project_id": "booklib-b0616",
+    "storage_bucket": "booklib-b0616.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321014829134:android:bafde1b9240fe4fea0731f",
+        "android_client_info": {
+          "package_name": "com.example.books_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnUezwCRoSYb5ZSqx-Sj-B-ilWuPHUlEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
