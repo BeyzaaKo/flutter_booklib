@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:books_app/pages/sinup_page.dart';
 import 'package:books_app/jsonModel/users.dart';
 import 'package:books_app/SQLite/sqlite.dart';
+import 'package:get_it/get_it.dart';
+import 'package:books_app/main.dart';
+
+final getIt = GetIt.instance;
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -33,10 +37,15 @@ class _LoginPageState extends State<LoginPage> {
         usrEmail: emailController.text,
       ));
       if (response == true) {
+        // Kullanıcı adını güncelle
+        getIt<UserService>().username = usernameController.text;
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ProfilePage(),
+            builder: (context) => ProfilePage(
+              username: usernameController.text,
+            ),
           ),
         );
       } else {

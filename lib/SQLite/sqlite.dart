@@ -9,14 +9,14 @@ class DatabaseHelper {
   //Now we must create our user table into our sqlite db
 
   String users =
-      "create table users (usrId INTEGER PRIMARY KEY AUTOINCREMENT, usrName TEXT UNIQUE, usrPassword TEXT)";
+      "create table users (usrId INTEGER PRIMARY KEY AUTOINCREMENT, usrEmail TEXT, usrName TEXT UNIQUE, usrPassword TEXT, profilePicture TEXT)";
 
   //initDB: uygulama ilk çalıştığında veritabanını oluşturur
   Future<Database> initDB() async {
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, databaseName);
 
-    return openDatabase(path, version: 1, onCreate: (db, version) async {
+    return openDatabase(path, version: 2, onCreate: (db, version) async {
       await db.execute(users);
     });
   }
@@ -64,7 +64,10 @@ class DatabaseHelper {
     final Database db = await initDB();
 
     return db.update(
-        'users', {'usrName': username, 'profilePicture': profilePicture},
-        where: 'usrName = ?', whereArgs: [username]);
+      'users',
+      {'profilePicture': profilePicture},
+      where: 'usrName = ?',
+      whereArgs: [username],
+    );
   }
 }

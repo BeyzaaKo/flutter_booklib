@@ -3,13 +3,28 @@ import 'package:books_app/pages/discover_page.dart';
 import 'package:books_app/pages/books_page.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/data/bookdata.dart';
+import 'package:books_app/main.dart';
 
 class ProfilePage extends StatefulWidget {
+  final String? username;
+
+  ProfilePage({this.username});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  // Kullanıcı adını artık SharedPreferences'ten almak yerine doğrudan widget'tan alıyoruz
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    // Kullanıcı adını direkt olarak widget parametresinden alıyoruz
+    username = getIt<UserService>().username;
+  }
+
   List<BookData> saved = [
     BookData(
       bookCover: 'lib/images/book_cover_1.jpg',
@@ -103,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "UserName",
+                        "$username",
                         style: TextStyle(
                           color: Color.fromARGB(255, 75, 110, 60),
                           fontSize: 15,

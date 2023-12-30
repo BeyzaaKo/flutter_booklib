@@ -2,6 +2,7 @@ import 'package:books_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/jsonModel/users.dart';
 import 'package:books_app/SQLite/sqlite.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -227,6 +228,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
 
                   const SizedBox(height: 10),
+
                   //Login button
                   Container(
                     height: 55,
@@ -255,6 +257,9 @@ class _SignupPageState extends State<SignupPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => LoginPage()));
+
+                              // Kullanıcı adını SharedPreferences'e kaydet
+                              saveUsername(usernameController.text);
                             });
                           }
                         },
@@ -305,5 +310,11 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
+  }
+
+  // SharedPreferences ile kullanıcı adını kaydetmek
+  Future<void> saveUsername(String username) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', username);
   }
 }

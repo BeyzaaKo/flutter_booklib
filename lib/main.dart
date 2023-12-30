@@ -3,6 +3,22 @@ import 'pages/login_page.dart';
 import 'pages/sinup_page.dart';
 import 'package:provider/provider.dart';
 import 'components/user_provider.dart';
+//import 'package:books_app/genres/app_notifier.dart';
+import 'package:get_it/get_it.dart';
+
+// GetIt servisini oluşturun
+final getIt = GetIt.instance;
+
+// Kullanıcı adını saklamak için bir servis sınıfı
+class UserService {
+  String? _username;
+
+  String? get username => _username;
+
+  set username(String? value) {
+    _username = value;
+  }
+}
 
 void main() {
   runApp(
@@ -11,9 +27,19 @@ void main() {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         // Diğer provider'ları da ekleyebilirsiniz
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
+    /*
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppNotifier()),
+        // Diğer providerlar buraya eklenebilir
+      ],
+      child: const MyApp(),
+    ),*/
   );
+  // GetIt servisini başlatın
+  getIt.registerLazySingleton(() => UserService());
 }
 
 class MyApp extends StatelessWidget {
