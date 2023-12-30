@@ -1,301 +1,6 @@
-/*import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import 'package:books_app/book_genres/action.dart';
-import 'package:books_app/book_genres/classics.dart';
-import 'package:books_app/book_genres/dystophian.dart';
-import 'package:books_app/book_genres/fantasy.dart';
-import 'package:books_app/book_genres/romance.dart';
 import 'package:books_app/pages/settings_page.dart';
-import 'package:books_app/data/bookdata.dart';
-import 'package:books_app/pages/books_page.dart';
 import 'package:books_app/pages/discover_page.dart';
 import 'package:books_app/pages/profile_page.dart';
-
-class BooksPage extends StatefulWidget {
-  final String genre;
-
-  BooksPage({required this.genre});
-
-  @override
-  _BooksPageState createState() => _BooksPageState();
-}
-
-class _BooksPageState extends State<BooksPage> {
-  List<BookData> _parseBookJson(String jsonStr, String genre) {
-    final jsonMap = json.decode(jsonStr);
-    final jsonList =
-        (jsonMap['items'] as List); // 'items' altındaki verileri al
-    return jsonList
-        .map<BookData>((jsonBook) => BookData.fromJson(
-              jsonBook,
-              genre,
-            ))
-        .toList();
-  }
-
-  List<BookData> actionBooks = [];
-  List<BookData> fantasyBooks = [];
-  List<BookData> dystophianBooks = [];
-  List<BookData> romanceBooks = [];
-  List<BookData> classicsBooks = [];
-
-  @override
-  void initState() {
-    super.initState();
-    // Veriyi çekmek için initState içinde fetchData fonksiyonunu çağırın
-    fetchBooksForGenres(
-        ['aksiyon', 'fantastik', 'distopik', 'romantik', 'klasik']);
-  }
-
-  Future<void> fetchBooksForGenres(List<String> genres) async {
-    for (var genre in genres) {
-      await fetchDataForGenre(genre);
-    }
-  }
-
-  Future<void> fetchDataForGenre(String genre) async {
-    try {
-      final response = await http.get(
-        Uri.parse(
-          'https://www.googleapis.com/books/v1/volumes?q=subject:$genre&key=API_KEY',
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        // Eğer sunucu başarılı bir 200 OK cevabı dönerse, JSON'u işleyin
-        final List<BookData> fetchedBooks =
-            _parseBookJson(response.body, genre);
-
-        // State'i güncelleyin ve yeni veriyle birlikte yeniden oluşturun
-        setState(() {
-          if (genre == 'aksiyon') {
-            actionBooks = fetchedBooks;
-          } else if (genre == 'fantastik') {
-            fantasyBooks = fetchedBooks;
-          } else if (genre == 'distopik') {
-            dystophianBooks = fetchedBooks;
-          } else if (genre == 'romantik') {
-            romanceBooks = fetchedBooks;
-          } else if (genre == 'klasik') {
-            classicsBooks = fetchedBooks;
-          }
-        });
-      } else {
-        // Eğer sunucu başarılı bir 200 OK cevabı dönmese
-        // bir hata oluşturun.
-        print(
-            'Books for genre $genre failed to load. Status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error fetching books for genre $genre: $error');
-    }
-  }
-
-  Widget _buildGenreList(String genre, List<BookData> books) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 20),
-        Text(
-          genre,
-          style: TextStyle(
-            color: Color.fromARGB(255, 55, 80, 44),
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        SizedBox(height: 10),
-        Container(
-          width: double.infinity,
-          height: 170.0,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: books.map((book) => _buildBookCard(book)).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBookCard(BookData book) {
-    if (book.genre == 'aksiyon') {
-      return action(book);
-    } else if (book.genre == 'fantastik') {
-      return fantasy(book);
-    } else if (book.genre == 'distopik') {
-      return dystophian(book);
-    } else if (book.genre == 'romantik') {
-      return romance(book);
-    } else if (book.genre == 'klasik') {
-      return classics(book);
-    }
-    return Container(); // Fallback
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 55, 80, 44),
-        centerTitle: true,
-        title: Text(
-          "Books",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            //geri dönme butonu
-            Icons.arrow_back_ios,
-            color: Colors.white,
-            size: 24,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Colors.white, //Color.fromARGB(255, 4, 157, 184),
-                size: 24,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()));
-              }),
-        ],
-      ),
-
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 18.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 5, left: 25, right: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Genres",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 75, 110, 60),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    height: 1.5, // Çizgi kalınlığı
-                    width: double.infinity, // Çizgi genişliği
-                    color: Color.fromARGB(255, 75, 110, 60),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            _buildGenreList(widget.genre, _getBooksByGenre(widget.genre)),
-            SizedBox(height: 10),
-          ],
-        ),
-      ),
-
-      //navigation bar
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        //seçili sayfanın rengi
-        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
-        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
-
-        //seçili sayfanın fontu
-        selectedLabelStyle: TextStyle(
-          fontSize: 14.0, // Seçili olan label font büyüklüğü
-          fontWeight: FontWeight.bold, // Seçili olan label font kalınlığı
-        ),
-        unselectedLabelStyle: TextStyle(
-          fontSize: 14.0, // Seçili olmayan label font büyüklüğü
-          fontWeight: FontWeight.normal, // Seçili olmayan label font kalınlığı
-        ),
-
-        //seçili sayfanın indeksi
-        currentIndex: 0,
-
-        //seçili sayfaya gitmek için
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BooksPage(genre: '')),
-              );
-              break;
-            case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DiscoverPage()),
-              );
-              break;
-            case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              );
-              break;
-          }
-        },
-
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.book,
-            ),
-            label: "Books",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: "Discover",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
-            label: "Profile",
-          ),
-        ],
-      ),
-    );
-  }
-
-  List<BookData> _getBooksByGenre(String genre) {
-    switch (genre) {
-      case 'aksiyon':
-        return actionBooks;
-      case 'fantastik':
-        return fantasyBooks;
-      case 'distopik':
-        return dystophianBooks;
-      case 'romantik':
-        return romanceBooks;
-      case 'klasik':
-        return classicsBooks;
-      default:
-        return [];
-    }
-  }
-}
-*/
-
-import 'package:books_app/pages/settings_page.dart';
 import 'package:books_app/genres/books_list.dart';
 import 'package:flutter/material.dart';
 
@@ -404,6 +109,82 @@ class BooksPage extends StatelessWidget {
             );
           },
         ),
+      ),
+      //navigation bar
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        //seçili sayfanın rengi
+        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
+        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
+
+        //seçili sayfanın fontu
+        selectedLabelStyle: TextStyle(
+          fontSize: 19.0, // Seçili olan label font büyüklüğü
+          fontWeight: FontWeight.bold, // Seçili olan label font kalınlığı
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 16.0, // Seçili olmayan label font büyüklüğü
+          fontWeight: FontWeight.w600, // Seçili olmayan label font kalınlığı
+        ),
+
+        //seçili sayfanın ikonu
+        selectedIconTheme: IconThemeData(
+          size: 32.0,
+        ),
+        unselectedIconTheme: IconThemeData(
+          size: 28.0,
+        ),
+
+        //seçili sayfanın indeksi
+        currentIndex: 0,
+
+        //seçili sayfaya gitmek için
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BooksPage()),
+              );
+              break;
+            case 1:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DiscoverPage()),
+              );
+              break;
+            case 2:
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfilePage(),
+                ),
+              );
+
+              break;
+          }
+        },
+
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.book,
+            ),
+            label: "Books",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+            ),
+            label: "Discover",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+            ),
+            label: "Profile",
+          ),
+        ],
       ),
     );
   }

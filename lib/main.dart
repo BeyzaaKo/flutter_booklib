@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/sinup_page.dart';
-import 'package:books_app/genres/app_notifier.dart';
 import 'package:provider/provider.dart';
+import 'components/user_provider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AppNotifier()),
-        // Diğer providerlar buraya eklenebilir
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        // Diğer provider'ları da ekleyebilirsiniz
       ],
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }
@@ -41,8 +41,8 @@ class MyHomePage extends StatelessWidget {
             // logo
             Image.asset(
               'lib/images/book_lib.png',
-              width: 200,
-              height: 200,
+              width: 250,
+              height: 250,
             ),
 
             const SizedBox(height: 10),
@@ -52,7 +52,7 @@ class MyHomePage extends StatelessWidget {
               'BookLib❤️',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 25,
+                fontSize: 35,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -70,17 +70,20 @@ class MyHomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius:
-                      BorderRadius.circular(22.0), // Butonun köşe yuvarlaklığı
+                      BorderRadius.circular(18), // Butonun köşe yuvarlaklığı
                 ),
                 primary: Color.fromARGB(255, 55, 80, 44), // Buton rengi
                 onPrimary: Colors.white, // Buton metin rengi
-                minimumSize: Size(150, 50),
+                minimumSize: Size(
+                  MediaQuery.of(context).size.width * 0.6, //genişlik
+                  55, //yükseklik
+                ),
               ),
               child: const Text(
-                "Login",
+                "LOGIN",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 20,
                 ),
               ),
             ),
@@ -97,18 +100,20 @@ class MyHomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius:
-                      BorderRadius.circular(22.0), // Butonun köşe yuvarlaklığı
+                      BorderRadius.circular(18), // Butonun köşe yuvarlaklığı
                 ),
                 primary: const Color.fromARGB(255, 55, 80, 44), // Buton rengi
                 onPrimary: Colors.white, // Buton metin rengi
-                minimumSize:
-                    const Size(150, 50), // Minimum boyut (genişlik, yükseklik)
+                minimumSize: Size(
+                  MediaQuery.of(context).size.width * 0.6, //genişlik
+                  55, //yükseklik
+                ), // Minimum boyut (genişlik, yükseklik)
               ),
               child: const Text(
-                'Sign Up',
+                'SIGN UP',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 20,
                 ),
               ),
             ),

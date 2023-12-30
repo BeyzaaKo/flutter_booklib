@@ -43,7 +43,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
     #api kullanmak için gerekli
   http: ^0.13.6
-  provider: ^6.0.5
+  provider: ^6.1.1
   url_launcher: ^6.2.1
   share: ^2.0.4
   transparent_image: ^2.0.1

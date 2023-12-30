@@ -1,4 +1,4 @@
-import 'package:books_app/navigationBar/nav_bar.dart';
+/*import 'package:books_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
@@ -17,11 +17,7 @@ class MyButton extends StatelessWidget {
       child: MaterialButton(
         onPressed: (() {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => NavBar(
-                        initialPage: 2,
-                      )));
+              context, MaterialPageRoute(builder: (context) => ProfilePage()));
         }),
         child: Text(
           "Login",
@@ -35,3 +31,4 @@ class MyButton extends StatelessWidget {
     );
   }
 }
+*/

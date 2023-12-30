@@ -1,4 +1,6 @@
 import 'package:books_app/pages/settings_page.dart';
+import 'package:books_app/pages/discover_page.dart';
+import 'package:books_app/pages/books_page.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/data/bookdata.dart';
 
@@ -8,9 +10,29 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  List<BookData> saved = [];
+  List<BookData> saved = [
+    BookData(
+      bookCover: 'lib/images/book_cover_1.jpg',
+      bookName: 'Book 1',
+      author: 'Author 1',
+      pageNum: 300,
+      rating: 4.5,
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      genre: 'Fiction',
+    ),
+  ];
 
-  List<BookData> fav = [];
+  List<BookData> fav = [
+    BookData(
+      bookCover: 'lib/images/book_cover_1.jpg',
+      bookName: 'Book 1',
+      author: 'Author 1',
+      pageNum: 300,
+      rating: 4.5,
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      genre: 'Fiction',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     backgroundImage: AssetImage("lib/images/avatar.png"),
                   ),
                 ),
-                //Padding(
-                //padding: const EdgeInsets.only(left: 20, top: 0),
+
                 Container(
                   margin: EdgeInsets.only(top: 10, left: 25, right: 25),
                   child: Column(
@@ -109,76 +130,167 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 //liste görünümü oluşturma
                 //kaydedilenler için
-                /*Container(
-                  margin: EdgeInsets.only(top: 10, left: 25, right: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "📃 Saved List",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 55, 80, 44),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 12), // Altından boşluk
+                buildBookList("📃 Saved List", saved),
 
-                Container(
-                  width: double.infinity,
-                  height: 200.0,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      mySaved(saved[0]),
-                      mySaved(saved[1]),
-                      mySaved(saved[2]),
-                      mySaved(saved[3]),
-                      mySaved(saved[3]),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: 16), // Altından boşluk
+                SizedBox(height: 16),
 
                 //favoriler için
-                Container(
-                  margin: EdgeInsets.only(top: 10, left: 25, right: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "🤍 Favourites",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 55, 80, 44),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 12),
-
-                Container(
-                  width: double.infinity,
-                  height: 200.0,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      myFavs(fav[0]),
-                      myFavs(fav[1]),
-                      myFavs(fav[2]),
-                      myFavs(fav[3]),
-                    ],
-                  ),
-                ),*/
+                buildBookList("🤍 Favourites", fav),
               ],
             ),
           ),
+        ),
+      ),
+
+      //navigation bar
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        //seçili sayfanın rengi
+        selectedItemColor: Color.fromARGB(255, 121, 159, 103),
+        unselectedItemColor: Color.fromARGB(255, 55, 80, 44),
+
+        //seçili sayfanın fontu
+        selectedLabelStyle: TextStyle(
+          fontSize: 19.0, // Seçili olan label font büyüklüğü
+          fontWeight: FontWeight.bold, // Seçili olan label font kalınlığı
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 16.0, // Seçili olmayan label font büyüklüğü
+          fontWeight: FontWeight.w600, // Seçili olmayan label font kalınlığı
+        ),
+
+        //seçili sayfanın ikonu
+        selectedIconTheme: IconThemeData(
+          size: 32.0,
+        ),
+        unselectedIconTheme: IconThemeData(
+          size: 28.0,
+        ),
+
+        //seçili sayfanın indeksi
+        currentIndex: 2,
+
+        //seçili sayfaya gitmek için
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BooksPage()),
+              );
+              break;
+            case 1:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DiscoverPage()),
+              );
+              break;
+            case 2:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              );
+              break;
+          }
+        },
+
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.book,
+            ),
+            label: "Books",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+            ),
+            label: "Discover",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+            ),
+            label: "Profile",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildBookList(String title, List<BookData> bookList) {
+    return Container(
+      margin: EdgeInsets.only(top: 10, left: 25, right: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Color.fromARGB(255, 55, 80, 44),
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          SizedBox(height: 12),
+          Container(
+            width: double.infinity,
+            height: 200.0,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: bookList.length,
+              itemBuilder: (context, index) {
+                return buildBookCard(bookList[index]);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildBookCard(BookData book) {
+    return Container(
+      width: 150.0,
+      margin: EdgeInsets.only(right: 12.0),
+      child: Card(
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(8.0)),
+                  image: DecorationImage(
+                    image: AssetImage("lib/images/book_cover.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                book.bookName,
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+              child: Text(
+                book.author,
+                style: TextStyle(fontSize: 12.0),
+              ),
+            ),
+          ],
         ),
       ),
     );
