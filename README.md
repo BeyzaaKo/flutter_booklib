@@ -7,9 +7,9 @@ The backend and frontend code is attached and structured in their respective fol
 
 ## Features
 
-- User profile with Saved and Favourites lists.
+- User profile with "Saved" and "Favourites" lists.
 - Discover page with popular books.
-- All book listings by genres.
+- All book listed by genres.
 - Author and book reviews and ratings.
 
 
