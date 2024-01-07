@@ -13,13 +13,9 @@ The backend and frontend code is attached and structured in their respective fol
 - Author and book reviews and ratings.
 
 ## App Screenshots
-<img width="314" alt="Ekran görüntüsü 2024-01-07 181616" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/09f82265-5480-4a5c-991f-1f0728aef75d">
-<img width="289" alt="Ekran görüntüsü 2024-01-07 181732" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/8666ed3f-f376-4a54-9f7c-642e57496f75">
-<img width="287" alt="Ekran görüntüsü 2024-01-07 181820" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/23d30cbb-724a-42c3-940b-59ea767dbf2c">
-<img width="278" alt="Ekran görüntüsü 2024-01-07 182526" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/a38cd96b-27a1-4f70-b7bb-22e0680fd85d">
-<img width="275" alt="Ekran görüntüsü 2024-01-07 182552" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/9d434816-7243-42d4-9d2e-e41aed3d5a09">
-<img width="316" alt="Ekran görüntüsü 2024-01-07 185407" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/9c6d95a0-a6c7-4e48-b40a-c2067b42698e">
-<img width="272" alt="Ekran görüntüsü 2024-01-07 185429" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/c6538460-31b2-4f61-a73a-dc26884fc5aa">
-<img width="296" alt="Ekran görüntüsü 2024-01-07 192144" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/92f4c1b1-e6fd-4ff9-8dd5-2479a52b89c4">
-<img width="296" alt="Ekran görüntüsü 2024-01-07 192144" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/869e1eaf-31e1-469e-a70c-5954a9edf399">
-<img width="284" alt="Ekran görüntüsü 2024-01-07 192526" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/89558a75-5b7a-463d-9218-629008f13bf4">
+<img width="300" alt="Ekran görüntüsü 2024-01-07 181616" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/9f9a5f19-c98e-4a81-bfc3-73ba23bb8708">
+<img width="300" alt="Ekran görüntüsü 2024-01-07 181732" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/81683fde-662d-4bdf-be4b-80d1b9289876">
+<img width="300" alt="Ekran görüntüsü 2024-01-07 185407" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/6eb719e1-f735-4d4b-b69a-f5ea674267ea">
+<img width="300" alt="Ekran görüntüsü 2024-01-07 185429" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/1d5bc969-7ed3-4e68-ab3f-f331e8cfe936">
+<img width="300" alt="Ekran görüntüsü 2024-01-07 192144" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/b0eb0c35-333f-4a58-b721-4850c049792c">
+<img width="300" alt="Ekran görüntüsü 2024-01-07 192526" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/106dfd02-7ad8-4056-89f1-af1d1c29283a">
