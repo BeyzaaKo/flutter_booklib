@@ -5,6 +5,7 @@
     
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "books_app",
             "request": "launch",
@@ -42,6 +43,7 @@
             "program": "lib/main.dart",
             "flutterMode": "debug",
             "deviceId": "emulator-5554"
-          },
+        },
+        
     ]
 }

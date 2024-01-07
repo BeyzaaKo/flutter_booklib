@@ -4,8 +4,12 @@ import 'package:books_app/setting%20widgets/setting_switch.dart';
 import 'package:books_app/pages/accountEdit_page.dart';
 import 'package:flutter/material.dart';
 
+//PROFİL RESMİNİ BURDAN DÜZENLE VE USERNAME DEĞERİNİ DE DİNAMİK AL
+
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  final String? username;
+
+  const SettingsPage({Key? key, this.username}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _AccPageState();
@@ -32,22 +36,6 @@ class _AccPageState extends State<SettingsPage> {
         ),
         leadingWidth: 80,
       ),
-
-      /*DÜZENLEME BUTONU
-      actions: [
-        IconButton(
-          icon: Icon(
-            Icons.mode_edit_outline_rounded,
-            color: Color.fromARGB(255, 55, 80, 44),
-            size: 20,
-          ),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AccPage()));
-          },
-        ),
-      ],*/
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
@@ -76,37 +64,49 @@ class _AccPageState extends State<SettingsPage> {
                 width: double.infinity,
                 child: Row(
                   children: [
-                    Image.asset("lib/images/avatar.png", width: 65, height: 65),
+                    ClipOval(
+                      child: Image.network(
+                        "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg",
+                        width: 75,
+                        height: 75,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     const SizedBox(width: 20),
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Username",
+                          "${widget.username}",
                           style: TextStyle(
-                              color: Color.fromARGB(255, 52, 61, 51),
+                              color: Color.fromARGB(255, 78, 101, 75),
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 5),
-                        Text(
-                          "user@email.com",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 144, 148, 143),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
                       ],
                     ),
                     const Spacer(),
                     //account butonu
                     ForwardButton(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AccPage()));
+                      onTap: () async {
+                        final String? usernameFromSettings =
+                            await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AccPage()),
+                        );
+
+                        if (usernameFromSettings != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  AccPage(username: usernameFromSettings),
+                            ),
+                          );
+                        }
                       },
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -142,21 +142,6 @@ class _AccPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 20),
 
-              //koyu tema ayarı
-              SettingSwitch(
-                title: "Dark Mode",
-                icon: Icons.dark_mode,
-                bgColor: Color.fromARGB(255, 243, 226, 252),
-                iconColor: const Color.fromARGB(255, 147, 7, 228),
-                value: isDarkMode,
-                onTap: (value) {
-                  setState(() {
-                    isDarkMode = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 20),
-
               //yardım ayarı
               SettingItem(
                 title: "Help",
@@ -164,6 +149,37 @@ class _AccPageState extends State<SettingsPage> {
                 bgColor: const Color.fromARGB(255, 248, 217, 228),
                 iconColor: Colors.pink,
                 onTap: () {},
+              ),
+
+              SizedBox(height: 40),
+
+              // "log out" butonu
+              Center(
+                child: Container(
+                  height: 55,
+                  width: MediaQuery.of(context).size.width * .4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    color: const Color.fromARGB(255, 94, 121, 82),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      // Çıkış yapma işlemleri burada gerçekleştirilebilir.
+                      // Örneğin, yetkilendirme durumunu sıfırlayabilirsiniz.
+
+                      // Çıkış yaptıktan sonra ana sayfaya yönlendirme işlemi:
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    },
+                    child: const Text(
+                      "Log Out",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

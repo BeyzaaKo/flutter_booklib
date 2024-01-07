@@ -76,7 +76,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
         pageNum: volumeInfo['pageCount'] ?? 0,
         description: volumeInfo['description'] ?? '',
         rating: volumeInfo['averageRating']?.toDouble() ?? 0.0,
-        bookCover: imageLinks != null ? imageLinks['smallThumbnail'] ?? '' : '',
+        bookCover: imageLinks != null
+            ? '${imageLinks['thumbnail']}?&zoom=2&width=50'
+            : '',
         genre: '',
       );
     }).toList();
@@ -158,7 +160,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               // Popüler kitapları gösteren widget
               Container(
                 width: double.infinity,
-                height: 300.0,
+                height: 250.0,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: popularBooks.map((book) => popBook(book)).toList(),

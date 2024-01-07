@@ -1,9 +1,13 @@
+import 'package:books_app/book_services/service_saved.dart';
 import 'package:books_app/pages/settings_page.dart';
 import 'package:books_app/pages/discover_page.dart';
 import 'package:books_app/pages/books_page.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/data/bookdata.dart';
 import 'package:books_app/main.dart';
+import 'package:books_app/book_services/service_fav.dart';
+import 'package:books_app/book_services/service_saved.dart';
+import 'dart:convert' as convert;
 
 class ProfilePage extends StatefulWidget {
   final String? username;
@@ -15,39 +19,54 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // Kullanıcı adını artık SharedPreferences'ten almak yerine doğrudan widget'tan alıyoruz
   String? username;
+
+  List<BookData> fav = [];
+  List<BookData> saved = [];
 
   @override
   void initState() {
     super.initState();
     // Kullanıcı adını direkt olarak widget parametresinden alıyoruz
     username = getIt<UserService>().username;
+    getBooks();
   }
 
-  List<BookData> saved = [
-    BookData(
-      bookCover: 'lib/images/book_cover_1.jpg',
-      bookName: 'Book 1',
-      author: 'Author 1',
-      pageNum: 300,
-      rating: 4.5,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      genre: 'Fiction',
-    ),
-  ];
+  void getBooks() async {
+    try {
+      var resultSaved = await FavBookServices().getFavBooks();
+      var resultFav = await SavedBookServices().getSavedBooks();
 
-  List<BookData> fav = [
-    BookData(
-      bookCover: 'lib/images/book_cover_1.jpg',
-      bookName: 'Book 1',
-      author: 'Author 1',
-      pageNum: 300,
-      rating: 4.5,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      genre: 'Fiction',
-    ),
-  ];
+      setState(() {
+        saved = resultSaved;
+        fav = resultFav;
+      });
+    } catch (e) {
+      print('Error fetching books: $e');
+    }
+  }
+
+  List<BookData> _parseBookJson(String jsonStr) {
+    final jsonMap = convert.json.decode(jsonStr);
+    final jsonList = (jsonMap['items'] as List);
+
+    return jsonList.map((jsonBook) {
+      final volumeInfo = jsonBook['volumeInfo'];
+      final imageLinks = volumeInfo['imageLinks'];
+
+      return BookData(
+        bookName: volumeInfo['title'] ?? 'Unknown Title',
+        author: (volumeInfo['authors'] as List<dynamic>?)?.isNotEmpty ?? false
+            ? volumeInfo['authors'][0]
+            : 'Unknown Author',
+        pageNum: volumeInfo['pageCount'] ?? 0,
+        description: volumeInfo['description'] ?? '',
+        rating: volumeInfo['averageRating']?.toDouble() ?? 0.0,
+        bookCover: imageLinks != null ? imageLinks['smallThumbnail'] ?? '' : '',
+        genre: '',
+      );
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,18 +102,17 @@ class _ProfilePageState extends State<ProfilePage> {
               size: 24,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SettingsPage(username: username)));
             },
           ),
         ],
       ),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            // Burada profil bilgileri veya başka öğeler olabilir
-            // SliverAppBar veya SliverPersistentHeader gibi
-          ];
+          return [];
         },
         body: SingleChildScrollView(
           child: Padding(
@@ -107,8 +125,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage("lib/images/avatar.png"),
+                    radius: 60,
+                    //backgroundImage: AssetImage("lib/images/avatar"),
+                    backgroundImage: NetworkImage(
+                        "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg"),
                   ),
                 ),
 
@@ -121,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         "$username",
                         style: TextStyle(
                           color: Color.fromARGB(255, 75, 110, 60),
-                          fontSize: 15,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -145,12 +165,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 //liste görünümü oluşturma
                 //kaydedilenler için
-                buildBookList("📃 Saved List", saved),
+                buildBookList("Saved List", saved),
 
                 SizedBox(height: 16),
 
                 //favoriler için
-                buildBookList("🤍 Favourites", fav),
+                buildBookList("Favourites", fav),
               ],
             ),
           ),
@@ -234,23 +254,36 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget buildBookList(String title, List<BookData> bookList) {
+    IconData titleIcon = title == "Saved List" ? Icons.list : Icons.favorite;
+
     return Container(
       margin: EdgeInsets.only(top: 10, left: 25, right: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: Color.fromARGB(255, 55, 80, 44),
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                titleIcon, // İkonu buradan alın
+                color: Color.fromARGB(255, 55, 80, 44),
+                size: 28,
+              ),
+              SizedBox(width: 8), // İkon ile metin arasında boşluk
+              Text(
+                title,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 55, 80, 44),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 12),
           Container(
             width: double.infinity,
-            height: 200.0,
+            height: 180.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: bookList.length,
@@ -266,10 +299,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildBookCard(BookData book) {
     return Container(
-      width: 150.0,
+      width: 120.0,
       margin: EdgeInsets.only(right: 12.0),
+      decoration: BoxDecoration(
+        //color: const Color.fromARGB(255, 216, 216, 216),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       child: Card(
-        elevation: 4.0,
+        color: Color.fromARGB(150, 193, 204, 188),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -282,7 +319,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(8.0)),
                   image: DecorationImage(
-                    image: AssetImage("lib/images/book_cover.png"),
+                    image: NetworkImage(book.bookCover),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -293,7 +330,8 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 book.bookName,
                 style: TextStyle(
-                  fontSize: 14.0,
+                  color: Colors.white,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -302,7 +340,10 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
               child: Text(
                 book.author,
-                style: TextStyle(fontSize: 12.0),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 11.0,
+                ),
               ),
             ),
           ],

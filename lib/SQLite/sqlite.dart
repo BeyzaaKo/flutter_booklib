@@ -2,6 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:books_app/jsonModel/users_lists.dart';
 import 'package:books_app/jsonModel/users.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DatabaseHelper {
   final databaseName = "booksApp.db";
@@ -13,6 +14,9 @@ class DatabaseHelper {
 
   //initDB: uygulama ilk çalıştığında veritabanını oluşturur
   Future<Database> initDB() async {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+
     final databasePath = await getDatabasesPath();
     final path = join(databasePath, databaseName);
 

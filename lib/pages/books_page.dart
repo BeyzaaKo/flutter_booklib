@@ -44,6 +44,7 @@ class BooksPage extends StatelessWidget {
               }),
         ],
       ),
+
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
 
@@ -52,20 +53,22 @@ class BooksPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemCount: categoriesName.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 16 / 15,
-              crossAxisCount: 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
+            childAspectRatio: 16 / 15,
+            crossAxisCount: 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+          ),
           itemBuilder: (context, index) {
             //her kategori ismi yazıldığında belli bir işlem yapar, BookList sayfasına geçer
             return GestureDetector(
               onTap: () {
                 print(categoriesName[index]);
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            BookList(name: categoriesName[index])));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookList(name: categoriesName[index]),
+                  ),
+                );
               },
 
               //gradient ekler

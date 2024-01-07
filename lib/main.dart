@@ -1,8 +1,9 @@
+import 'package:books_app/genres/app_notifier.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/sinup_page.dart';
 import 'package:provider/provider.dart';
-import 'components/user_provider.dart';
+//import 'components/user_provider.dart';
 //import 'package:books_app/genres/app_notifier.dart';
 import 'package:get_it/get_it.dart';
 
@@ -24,7 +25,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => AppNotifier()),
         // Diğer provider'ları da ekleyebilirsiniz
       ],
       child: const MyApp(),

@@ -17,6 +17,8 @@ class BookList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Building BookList for category: $name');
+
     double height = MediaQuery.of(context).size.height / 815;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -56,11 +58,14 @@ class BookList extends StatelessWidget {
             future: value.searchBookData(searchBook: name),
             builder: (context, AsyncSnapshot<Books> snapshot) {
               if (snapshot.hasError) {
+                print('Error fetching books: ${snapshot.error}');
                 return const Center(
                   child: Text("Oops! Try again later!"),
                 );
               }
               if (snapshot.hasData) {
+                print(
+                    'Received ${snapshot.data?.items?.length} books for category: $name');
                 return GridView.builder(
                   itemCount: 36,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
