@@ -17,5 +17,5 @@ The backend and frontend code is attached and structured in their respective fol
 <img width="285" alt="Ekran görüntüsü 2024-01-07 181732" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/fa32fdc8-ef99-424b-bbd7-0a36e78f173d">
 <img width="313" alt="Ekran görüntüsü 2024-01-07 185407" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/e29af351-fabd-4969-88a9-5b67250938f1">
 <img width="268" alt="Ekran görüntüsü 2024-01-07 185429" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/ae9ad8c4-2b2f-42e6-93ee-7f0801076aab">
-<img width="299" alt="Ekran görüntüsü 2024-01-07 192204" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/673b8a05-93d1-46c9-924f-9ceee4138c1d">
+<img width="291" alt="Ekran görüntüsü 2024-01-07 192144" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/da4f11f6-c2da-402d-88bd-8dcc627169fc">
 <img width="280" alt="Ekran görüntüsü 2024-01-07 192526" src="https://github.com/BeyzaaKo/flutter_booklib/assets/110380998/0baf4c0d-b1c2-48b4-bf68-430c6b60d0bb">
